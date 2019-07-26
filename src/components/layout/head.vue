@@ -1,6 +1,7 @@
 <template>
   <div>
     <header id="header">
+      <i class="fa fa-angle-left fa-lg" v-if="this.$route.path=='/movie/seek'" @click="clickRouter"></i>
       <h1>{{title}}</h1>
     </header>
   </div>
@@ -14,6 +15,11 @@ export default {
     title: {
       type: String,
       default: "喵喵电影"
+    }
+  },
+  methods:{
+    clickRouter(){
+      this.$router.go(-1);
     }
   }
 };
@@ -37,10 +43,9 @@ export default {
   }
   i {
     position: absolute;
-    left: 1.3333vw;
-    top: 50%;
-    margin-top: --3.4667vw;
-    font-size: 6.9333vw;
+    left: r(6);
+    top: r(2);
+    font-size: r(60);
   }
 }
 </style>

@@ -11,7 +11,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      flag: false
+    };
   },
   mounted() {
     this.carouselInit();
@@ -19,14 +21,15 @@ export default {
   methods: {
     carouselInit() {
       this.$nextTick(() => {
+        // setTimeout(() => {
         new Swiper(".swiper-container", {
           pagination: ".swiper-pagination",
           freeMode: true,
           slidesPerView: 4,
-          // spaceBetween: 30,
           slidesOffsetBefore: 12,
-          slidesOffsetAfter: 46
+          slidesOffsetAfter: 50
         });
+        // }, 1000);
       });
     }
   }
@@ -48,9 +51,10 @@ export default {
   .swiper-wrapper {
     margin-bottom: r(12);
     .carousel {
-      width:r(85) !important;
+      width: r(85) !important;
       margin-right: r(14);
-      img {
+      position: relative;
+      .imgList {
         width: 100%;
         height: r(115);
       }
@@ -68,6 +72,28 @@ export default {
         color: #999;
         text-align: left;
         line-height: r(20);
+      }
+      span {
+        position: absolute;
+        left: 0;
+        bottom: r(50);
+        color: #faaf00;
+        font-size: r(12);
+        font-weight: 600;
+      }
+      em {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: r(28);
+        height: r(28);
+        background: rgba(61, 63, 71, 0.6);
+        padding-top: r(9);
+        box-sizing: border-box;
+        .like_btn {
+          width: r(10);
+          height: r(10);
+        }
       }
     }
   }

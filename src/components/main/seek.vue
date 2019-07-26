@@ -12,7 +12,7 @@
         <ul>
           <li>
             <div class="img">
-              <img src="images/movie_1.jpg" />
+              <img src="@/assets/movie_1.jpg" />
             </div>
             <div class="info">
               <p>
@@ -26,7 +26,7 @@
           </li>
           <li>
             <div class="img">
-              <img src="images/movie_1.jpg" />
+              <img src="@/assets/movie_2.jpg" />
             </div>
             <div class="info">
               <p>
@@ -58,7 +58,7 @@ export default {
 .search_body {
   flex: 1;
   overflow: auto;
-  margin-top: 25.6vw;
+  margin-top: r(51);
 
   .search_input {
     padding: r(8) r(10);

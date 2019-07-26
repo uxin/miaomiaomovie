@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- tab栏切换 -->
-    <div class="movie_menu" v-if="!(this.$route.path=='/movie/site')">
+    <div class="movie_menu" v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek')">
       <div class="city_name" @click="clickSite">
         <span>长沙</span>
         <i class="iconfont icon-lower-triangle"></i>

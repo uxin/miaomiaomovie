@@ -1,127 +1,38 @@
 <template>
   <div>
-
-      <swiperList>
-        <div class="swiper-slide carousel" v-for="(item,index) in [1,2,3,4,5,6,7,8,9]" :key="index">
-          <img src="@/assets/movie_1.jpg"  />
-          <h5>烈火英雄</h5>
-          <p class="date">8月1日</p>
-        </div>
-      </swiperList>
+    <!-- 轮播 -->
+    <swiperList v-if="flag">
+      <div class="swiper-slide carousel" v-for="(item,index) in carouselList" :key="index">
+        <img class="imgList" :src="item.img.replace(item.img.substr(22, 3),'128.180')" />
+        <h5>{{item.nm}}</h5>
+        <p class="date">{{item.comingTitle}}</p>
+        <span>{{item.wish}}人想看</span>
+        <em>
+          <img
+            class="like_btn"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAoCAYAAACFFRgXAAAABGdBTUEAALGPC/xhBQAAAytJREFUWAnVmLtrFFEUh3cWFAtRE5FEEUREsFAkooUIgl3+CUEU7LVR1LBIMERCLFLZRG1CrFJYpLBQENRGC4n4wBeKRUQ2PlAQX+v3m70z7MzemZ3HZp05cPbce86553w7O7Mzc51KjDQaDYfwDvSAseux69Cv6Ef0LXoHXXAc5y82UqhVJbgLPYhuQTega9DPaB19ht6VpVYDaxUBWYUGewkcQzdbE4LOJabXaHQ76G7OqHWI0RG0v+mJ/XxPdJpaD2xZbcAUX0XiSXS/bUEH3yPil2imL1Chln6RE+huzVPKffJV60frugAwDfoI1tBtrUkpx4vknzVrLmAHU65vTX/F5DzQnzynDwzsCpwX0e1eMIfV+S3ReZpXXlDgFNC/VEgXgifHGXQDVvUE2g1Y1RKT2FxxgTm6cg4bXxHNsGH0j/DhIlKGmFzGKuSbCAyFgkWcDsG6UaeE/m/LIvsEvKcstGIV8ECJgAcErJtFWaRPwCvLQitWAbv3/ZJALwlYj3ZlkbqA9YBRFnkp4HtloRWrgJ+g/uNbgeHF+LTKY5tebWYLDOqhzYpVR1hyE33njor5ITYxNp/WIP/DeBINvI4ooQAipknD6D9eVnC8JjCOxr799vgLiGXcsLmtvVPCnRB4yGDanRTjQ2/PYvIlACwvCTcwM37G/xvMGJYAQRuwoiRex8wFMns7mTMMbV2twMpiwVXMfNuK5XfMm97WTpHAJvsy9pZ15fI41Us9IyUWmG+qPa4ptBe3b/WYMj2zAWsVBfQfPYEGrlbFuiiqPWF6xZaNPcLeSgr9ZjyGLni+LlrVHDM9OpZNBKwqFPyJGUWfa94lUa1RUztRSX9vLVE2SewNrMboaG9NuiYi7w3+M8B+i4hb3amBVQXotRjdxpPsHWtJWLQHfBrYL+FAp3kmYBUFWnu/2u1Mu03wgTXajaxjU0tmYHUCehAj6H7NE4ggBSvoTJL4orNVp/Eifm1eJ/lplXMuD6wYcgGrAAA6H0fQ75pHiGIjJjciJZk7N7DaAKIrvobarnj5aiaHYT7JdQ6HW5sL8Sj+nSb2GHsF2EwXWLi+5v8ArR6xIZ+h44wAAAAASUVORK5CYII="
+            alt
+          />
+        </em>
+      </div>
+    </swiperList>
 
     <div class="movie_body">
       <ul>
-        <li>
+        <h5>8月1日 周四</h5>
+        <li v-for="(item,index) in nowList" :key="index">
           <div class="pic_show">
-            <img src="@/assets/movie_1.jpg" />
+            <img :src="item.img.replace(item.img.substr(22, 3),'128.180')" />
           </div>
           <div class="info_list">
-            <h2>无名之辈</h2>
+            <h2>{{item.nm}}</h2>
             <p>
-              <span class="person">17746</span> 人想看
+              <span class="person">{{item.wish}}</span> 人想看
             </p>
-            <p>主演: 陈建斌,任素汐,潘斌龙</p>
-            <p>2018-11-30上映</p>
+            <p>{{item.star}}</p>
+            <p>{{item.showInfo||'敬请期待'}}</p>
           </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_2.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>毒液：致命守护者</h2>
-            <p>
-              <span class="person">2346</span> 人想看
-            </p>
-            <p>主演: 汤姆·哈迪,米歇尔·威廉姆斯,里兹·阿迈德</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_1.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>无名之辈</h2>
-            <p>
-              <span class="person">17746</span> 人想看
-            </p>
-            <p>主演: 陈建斌,任素汐,潘斌龙</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_2.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>毒液：致命守护者</h2>
-            <p>
-              <span class="person">2346</span> 人想看
-            </p>
-            <p>主演: 汤姆·哈迪,米歇尔·威廉姆斯,里兹·阿迈德</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_1.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>无名之辈</h2>
-            <p>
-              <span class="person">17746</span> 人想看
-            </p>
-            <p>主演: 陈建斌,任素汐,潘斌龙</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_2.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>毒液：致命守护者</h2>
-            <p>
-              <span class="person">2346</span> 人想看
-            </p>
-            <p>主演: 汤姆·哈迪,米歇尔·威廉姆斯,里兹·阿迈德</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_1.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>无名之辈</h2>
-            <p>
-              <span class="person">17746</span> 人想看
-            </p>
-            <p>主演: 陈建斌,任素汐,潘斌龙</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
-        </li>
-        <li>
-          <div class="pic_show">
-            <img src="@/assets/movie_2.jpg" />
-          </div>
-          <div class="info_list">
-            <h2>毒液：致命守护者</h2>
-            <p>
-              <span class="person">2346</span> 人想看
-            </p>
-            <p>主演: 汤姆·哈迪,米歇尔·威廉姆斯,里兹·阿迈德</p>
-            <p>2018-11-30上映</p>
-          </div>
-          <div class="btn_pre">预售</div>
+          <div class="btn_mall" :class="item.showst!=4?'btn_yellow':'btn_pre'">{{item.showst!=4?'想看':'预售'}}</div>
         </li>
       </ul>
     </div>
@@ -130,7 +41,11 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      carouselList: [],
+      nowList:[],
+      flag: false
+    };
   },
   mounted() {
     this.CarouselInit();
@@ -139,12 +54,15 @@ export default {
   methods: {
     CarouselInit() {
       this._getCarouselData(res => {
-        console.log(res);
+        // console.log(res.data.coming);
+        this.carouselList = res.data.coming;
+        this.flag = true;
       });
     },
     NowListInit() {
       this._getNowListData(res => {
-        console.log(res);
+        console.log(res.data.coming);
+        this.nowList=res.data.coming
       });
     },
     _getCarouselData(callback) {
@@ -161,7 +79,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-
 .movie_body {
   border-top: r(1) solid #e6e6e6;
   flex: 1;
@@ -169,6 +86,14 @@ export default {
   ul {
     margin: 0 3.2vw;
     overflow: hidden;
+    margin-bottom: r(50);
+    h5 {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #333;
+      text-align: left;
+      font-weight: 400;
+    }
     li {
       margin-top: 3.2vw;
       display: flex;
@@ -239,6 +164,10 @@ export default {
   }
   .bgc_buule {
     background-color: #3c9fe6;
+  }
+
+  .btn_yellow {
+    background-color: #faaf00;
   }
 
   .btn_pre {
