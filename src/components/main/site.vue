@@ -97,7 +97,7 @@ export default {};
   .city_list {
     flex: 1;
     overflow: auto;
-    background: #fff5f0;
+    background: #ebebeb;
     &::-webkit-scrollbar {
       background-color: transparent;
       width: 0;

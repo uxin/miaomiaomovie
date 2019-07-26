@@ -1,6 +1,6 @@
 <template>
   <div>
-    <lay_head v-if="!(this.$route.path=='/movie/site')" :title="this.$route.path=='/cinema'?'影院':'猫眼电影'"></lay_head>
+    <lay_head v-if="!(this.$route.path=='/movie/site')" :title="this.$route.path=='/cinema'?'影院':'喵喵电影'"></lay_head>
 
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive" />

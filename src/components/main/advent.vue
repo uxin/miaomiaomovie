@@ -1,5 +1,14 @@
 <template>
   <div>
+
+      <swiperList>
+        <div class="swiper-slide carousel" v-for="(item,index) in [1,2,3,4,5,6,7,8,9]" :key="index">
+          <img src="@/assets/movie_1.jpg"  />
+          <h5>烈火英雄</h5>
+          <p class="date">8月1日</p>
+        </div>
+      </swiperList>
+
     <div class="movie_body">
       <ul>
         <li>
@@ -119,11 +128,42 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  mounted() {
+    this.CarouselInit();
+    this.NowListInit();
+  },
+  methods: {
+    CarouselInit() {
+      this._getCarouselData(res => {
+        console.log(res);
+      });
+    },
+    NowListInit() {
+      this._getNowListData(res => {
+        console.log(res);
+      });
+    },
+    _getCarouselData(callback) {
+      this.$apis.getCarouselData().then(res => {
+        callback(res);
+      });
+    },
+    _getNowListData(callback) {
+      this.$apis.getNowListData().then(res => {
+        callback(res);
+      });
+    }
+  }
+};
 </script>
 <style scoped lang="scss">
+
 .movie_body {
-  margin-top: 25.0667vw;
+  border-top: r(1) solid #e6e6e6;
   flex: 1;
   overflow: auto;
   ul {

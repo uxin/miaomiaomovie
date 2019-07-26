@@ -7,8 +7,8 @@
         <i class="iconfont icon-lower-triangle"></i>
       </div>
       <div class="hot_swtich">
-        <div class="hot_item active" @click="clickNowPlay">正在热映</div>
-        <div class="hot_item" @click="clickAdvent">即将上映</div>
+        <div class="hot_item" :class="{active:index==className}" v-for="(item,index) in clickList" :key="index" @click="clickRouter(index),clickClassName(index)">{{item.name}}</div>
+        <!-- <div class="hot_item" @click="clickAdvent">即将上映</div> -->
       </div>
       <div class="search_entry" @click="clickSeek">
         <i class="iconfont icon-sousuo"></i>
@@ -24,25 +24,35 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      site:{ path: "/movie/site", name: "长沙", className: "iconfont icon-dianying" },
-      nowPlay:{ path: "/movie/nowPlay", name: "正在热映", className: "iconfont icon-dianying" },
-      advent:{ path: "/movie/advent", name: "即将上映", className: "iconfont icon-dianying" },
-      seek:{ path: "/movie/seek", className: "iconfont icon-dianying" },
+      site:{ path: "/movie/site", name: "长沙"},
+      seek:{ path: "/movie/seek" },
+      clickList:[
+        { path: "/movie/nowPlay", name: "正在热映"},
+        { path: "/movie/advent", name: "即将上映"},
+      ],
+      className:0,
     };
   },
   methods:{
     clickSite(){
       this.$router.push(this.site.path)
     },
-    clickNowPlay(){
-      this.$router.push(this.nowPlay.path)
+    clickRouter(index){
+      this.$router.push(this.clickList[index].path)
     },
-    clickAdvent(){
-      this.$router.push(this.advent.path)
-    },
+    // clickNowPlay(){
+    //   this.$router.push(this.nowPlay.path)
+    // },
+    // clickAdvent(){
+    //   this.$router.push(this.advent.path)
+    // },
     clickSeek(){
       this.$router.push(this.seek.path)
     },
+
+    clickClassName(index){
+      this.className=index
+    }
   }
 };
 </script>
