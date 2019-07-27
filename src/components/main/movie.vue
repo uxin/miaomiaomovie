@@ -1,13 +1,22 @@
 <template>
   <div>
     <!-- tab栏切换 -->
-    <div class="movie_menu" v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek')">
+    <div
+      class="movie_menu"
+      v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek')"
+    >
       <div class="city_name" @click="clickSite">
-        <span>长沙</span>
+        <span>{{cityList.city}}</span>
         <i class="iconfont icon-lower-triangle"></i>
       </div>
       <div class="hot_swtich">
-        <div class="hot_item" :class="{active:index==className}" v-for="(item,index) in clickList" :key="index" @click="clickRouter(index),clickClassName(index)">{{item.name}}</div>
+        <div
+          class="hot_item"
+          :class="{active:index==className}"
+          v-for="(item,index) in clickList"
+          :key="index"
+          @click="clickRouter(index),clickClassName(index)"
+        >{{item.name}}</div>
         <!-- <div class="hot_item" @click="clickAdvent">即将上映</div> -->
       </div>
       <div class="search_entry" @click="clickSeek">
@@ -15,7 +24,7 @@
       </div>
     </div>
     <!-- <keep-alives> -->
-      <router-view />
+    <router-view />
     <!-- </keep-alives> -->
   </div>
 </template>
@@ -24,21 +33,25 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      site:{ path: "/movie/site", name: "长沙"},
-      seek:{ path: "/movie/seek" },
-      clickList:[
-        { path: "/movie/nowPlay", name: "正在热映"},
-        { path: "/movie/advent", name: "即将上映"},
+      site: { path: "/movie/site", name: "长沙市" },
+      seek: { path: "/movie/seek" },
+      clickList: [
+        { path: "/movie/nowPlay", name: "正在热映" },
+        { path: "/movie/advent", name: "即将上映" }
       ],
-      className:0,
+      cityList: [],
+      className: 0
     };
   },
-  methods:{
-    clickSite(){
-      this.$router.push(this.site.path)
+  mounted() {
+    this.cityList = this.$route.query;
+  },
+  methods: {
+    clickSite() {
+      this.$router.push(this.site.path);
     },
-    clickRouter(index){
-      this.$router.push(this.clickList[index].path)
+    clickRouter(index) {
+      this.$router.push(this.clickList[index].path);
     },
     // clickNowPlay(){
     //   this.$router.push(this.nowPlay.path)
@@ -46,12 +59,12 @@ export default {
     // clickAdvent(){
     //   this.$router.push(this.advent.path)
     // },
-    clickSeek(){
-      this.$router.push(this.seek.path)
+    clickSeek() {
+      this.$router.push(this.seek.path);
     },
 
-    clickClassName(index){
-      this.className=index
+    clickClassName(index) {
+      this.className = index;
     }
   }
 };

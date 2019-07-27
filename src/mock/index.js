@@ -1,16 +1,21 @@
 import { UsersData } from './data/userInfo'
+import { cityData } from './data/cityInfo'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';  //拦截
 
 let mock = new MockAdapter(axios);  //初始化拦截对象
 
-// 模拟get请求
-mock.onGet("/login").reply((config) => {
-	return [200, UsersData];
-})
+// // 模拟get请求
+// mock.onGet("/login").reply((config) => {
+// 	return [200, UsersData];
+// })
+// export default axios  //暴露axios
+// mock.onGet("/movie/site").reply((config)=>{
+// 	console.log(config);
+
+// 	return [200, cityData]
+// })
 export default axios  //暴露axios
-
-
 
 
 

@@ -61,7 +61,7 @@ export default {
     },
     NowListInit() {
       this._getNowListData(res => {
-        console.log(res.data.coming);
+        // console.log(res.data.coming);
         this.nowList=res.data.coming
       });
     },
