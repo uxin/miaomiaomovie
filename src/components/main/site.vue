@@ -59,11 +59,10 @@ export default {
     setTimeout(() => {
       this.hotCityInit();
     });
-
     this.cityInit();
   },
   methods: {
-    hotCityInit() {
+    hotCityInit() {   //结合mint-ui实现A-Z排序的方法
       let newObj = {};
       let newArr = [];
       for (let i = 0; i < this.Citylist.length; i++) {
@@ -87,7 +86,7 @@ export default {
       this.newCityList = newArr;
     },
 
-    cityInit() {
+    cityInit() {  //获取城市的拼音的第一个字母
       this.Citylist.map(item => {
         item.letters = vPinyin.chineseToPinYin(item.city).charAt(0);
       });
@@ -125,15 +124,15 @@ export default {
     }
     .city_sort {
       .city_hot {
-        margin-bottom: 20px;
+        margin-bottom: r(20);
         .clearfix {
           overflow: hidden;
         }
-        margin-top: 5.3333vw;
+        margin-top: r(20);
         h2 {
-          padding-left: 4vw;
-          line-height: 8vw;
-          font-size: 3.7333vw;
+          padding-left: r(15);
+          line-height: r(30);
+          font-size: r(14);
           background: #f0f0f0;
           font-weight: normal;
           text-align: left;
@@ -142,16 +141,16 @@ export default {
           float: left;
           background: #fff;
           width: 29%;
-          height: 8.8vw;
-          margin-top: 4vw;
+          height: r(33);
+          margin-top: r(15);
           margin-left: 3%;
-          padding: 0 1.0667vw;
-          border: 0.2667vw solid #e6e6e6;
-          border-radius: 0.8vw;
-          line-height: 8.8vw;
+          padding: 0 r(4);
+          border: r(1) solid #e6e6e6;
+          border-radius: r(3);
+          line-height: r(33);
           text-align: center;
           box-sizing: border-box;
-          font-size: 4.2667vw;
+          font-size: r(16);
         }
       }
 
@@ -163,20 +162,18 @@ export default {
 
               p {
                 &.mint-indexsection-index {
-                  font-size: 16px;
-                  // text-align: left;
-                  // padding: 4px 14px;
+                  font-size: r(16);
                   background-color: #e6e6e6;
                   & + ul {
-                    padding: 6px 0;
+                    padding: r(6) 0;
                     background-color: #f5f5f5;
                     div {
-                      height: 44px;
-                      line-height: 44px;
-                      margin-left: 15px;
+                      height: r(44);
+                      line-height: r(44);
+                      margin-left: r(15);
                       text-align: left;
-                      font-size: 16px;
-                      border-bottom: 1px solid #c8c7cc;
+                      font-size:r(16);
+                      border-bottom: r(1) solid #c8c7cc;
                       &:last-child {
                         border: 0;
                       }

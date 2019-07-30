@@ -1,32 +1,54 @@
 <template>
   <div>
     <div id="content">
-      <div class="login_body">
-        <div>
-          <input class="login_text" type="text" placeholder="账户名/手机号/Email" />
-        </div>
-        <div>
-          <input class="login_text" type="password" placeholder="请输入您的密码" />
-        </div>
-        <div class="login_btn">
-          <input type="submit" value="登录" />
-        </div>
-        <div class="login_link">
-          <a href="#">立即注册</a>
-          <a href="#">找回密码</a>
-        </div>
+      <!-- 退出登录 -->
+      <div class="out_login">
+        <span @click="loginOut">退出登录</span>
       </div>
-      <em>喵喵电影 客服电话：400-479-3490</em>
     </div>
   </div>
 </template>
 <script>
+import { Toast, MessageBox } from "mint-ui"; //提示框
+import Store from "storejs"; //这个模块需要下载  cnpm install storejs
 export default {
   data() {
     return {};
   },
-  mounted() {},
-  methods: {}
+  created() {
+    if (Store.get("userInfo")) {
+      this.userInfo = Store.get("userInfo");
+    } else if (Store.get("userInfo") == undefined) {
+        this.$router.push("/login");
+    //   MessageBox.confirm("是否去登录")
+    //     .then(action => {
+    //       this.$router.push("/login");
+    //     })
+    //     .catch(() => {
+    //       Toast("取消成功");
+    //     });
+    }
+  },
+  methods: {
+    loginOut() {
+      // console.log(Store);
+      MessageBox.confirm("是否退出登录")
+        .then(action => {
+          Store.remove("userInfo");
+          this.$router.push("/login");
+        //   MessageBox.confirm("是否去登录")
+        //     .then(action => {
+        //       this.$router.push("/login");
+        //     })
+        //     .catch(() => {
+        //       Toast("取消成功");
+        //     });
+        })
+        .catch(() => {
+          Toast("取消成功");
+        });
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -62,7 +84,6 @@ export default {
         color: white;
         font-size: 5.3333vw;
       }
-
     }
     .login_link {
       display: flex;
@@ -76,11 +97,26 @@ export default {
     }
   }
 
-  em{
+  em {
     font-size: 4.2667vw;
     font-weight: 400;
     margin-top: 2.6667vw;
     color: #333;
   }
 }
+
+
+
+// 退出登录
+  .out_login {
+    width: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    margin-top: 4vw;
+    span {
+      display: inline-block;
+      font-size: 4.2667vw;
+      color: red;
+    }
+  }
 </style>

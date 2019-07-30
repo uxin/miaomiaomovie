@@ -6,7 +6,7 @@
       v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek')"
     >
       <div class="city_name" @click="clickSite">
-        <span>{{cityList.city}}</span>
+        <span>{{decodeURIComponent(this.$route.fullPath.substr(20)).substr(0,2)||"北京"}}</span>
         <i class="iconfont icon-lower-triangle"></i>
       </div>
       <div class="hot_swtich">
@@ -42,9 +42,6 @@ export default {
       cityList: [],
       className: 0
     };
-  },
-  mounted() {
-    this.cityList = this.$route.query;
   },
   methods: {
     clickSite() {

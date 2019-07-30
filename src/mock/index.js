@@ -1,21 +1,34 @@
 import { UsersData } from './data/userInfo'
-import { cityData } from './data/cityInfo'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter';  //拦截
 
 let mock = new MockAdapter(axios);  //初始化拦截对象
 
-// // 模拟get请求
-// mock.onGet("/login").reply((config) => {
-// 	return [200, UsersData];
-// })
-// export default axios  //暴露axios
-// mock.onGet("/movie/site").reply((config)=>{
-// 	console.log(config);
+// 模拟get请求
+mock.onGet("/login").reply((config) => {
+    // 账号不存在 -1
+    // 密码错误   -2
+    // 登入成功    2
+    // 注册成功    3
+    let loginInfo = config.params;
+    for (var i = 0; i < UsersData.length; i++) {
+        if (UsersData[i].username === loginInfo.username) {
+            if (UsersData[i].username === loginInfo.username & UsersData[i].password === loginInfo.password) {
+                return [200, { msg: "登入成功", code: "2", loginInfo: UsersData[i] }];
+            } else {
+                return [200, { msg: "密码错误", code: "-2" }];
+            }
+        }
+    }
+    return [200, { msg: "该账号不存在", code: "-1" }];
+})
 
-// 	return [200, cityData]
-// })
-export default axios  //暴露axios
+mock.onPost("/register").reply((config) => {
+    let registerInfo = JSON.parse(config.data).data;
+    UsersData.push(registerInfo)
+    return [200, { msg: "注册成功", code: "3" }];
+})
+export default axios;  //暴露axios
 
 
 

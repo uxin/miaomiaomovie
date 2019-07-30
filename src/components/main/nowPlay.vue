@@ -5,7 +5,7 @@
       <ul>
         <li v-for="(item,index) in movieList" :key="index">
           <div class="pic_show">
-            <img :src="item.img.replace(item.img.substr(22, 3),'128.180')" />
+            <img :src="item.img.replace(item.img.substr(22, 3),'128.180')" @click="clickRouter" />
           </div>
           <div class="info_list">
             <h2>{{item.nm | fontlenght(8)}}</h2>
@@ -51,6 +51,9 @@ export default {
       this.$apis.getCatEyeMovie().then(res => {
         callback(res);
       });
+    },
+    clickRouter(){
+      this.$router.push("/show")
     }
   }
 };

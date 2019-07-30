@@ -54,8 +54,21 @@ const routers = new Router({
           name: 'my',
           component: resolve => require(['@/components/main/my'], resolve)
         },
-
-
+        {
+          path: "show",
+          name: 'show',
+          component: resolve => require(['@/components/main/show'], resolve)
+        },
+        {
+          path: "register",
+          name: 'register',
+          component: resolve => require(['@/components/main/register'], resolve)
+        },
+        {
+          path: "login",
+          name: 'login',
+          component: resolve => require(['@/components/main/login'], resolve)
+        },
       ]
     }
   ]

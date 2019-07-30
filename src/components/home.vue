@@ -6,7 +6,7 @@
       <router-view v-if="$route.meta.keepAlive" />
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive" />
-    <lay_foot v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek')"></lay_foot>
+    <lay_foot v-if="!(this.$route.path=='/movie/site'||this.$route.path=='/movie/seek'||this.$route.path=='/show')"></lay_foot>
   </div>
 </template>
 
