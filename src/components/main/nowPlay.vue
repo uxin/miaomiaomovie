@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div >
     <!-- 正在热映 -->
     <div class="movie_body">
-      <ul>
+      <ul ref="box">
         <li v-for="(item,index) in movieList" :key="index">
           <div class="pic_show">
             <img :src="item.img.replace(item.img.substr(22, 3),'128.180')" @click="clickRouter" />
@@ -10,8 +10,12 @@
           <div class="info_list">
             <h2>{{item.nm | fontlenght(8)}}</h2>
             <span class="imax_img">
-            <img class="imax" :src="item.version | imax_filter(8)"  />
-            <img class="preShow" :src="item.preShow!=false?'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAcCAMAAAAtIK2eAAAAjVBMVEX/tQD/tQD/tgD/tQAAAAD/tAD///7/2Hz/y07/7MD/6rj/7sX/vBv/z17/35X/zVb/twn/8tX/xDf/uRD//fv/9uP/0mj/wS//viL/+u//78r/5qv/4Zn/tQT//PX/9d3/5KP/yEb/8dD/24T/z1z/xj//wSz/3pD/1nP/1G3/0WT/x0L/vyX/+Of/6LMvfBa2AAAABXRSTlPmphztAPMTpaIAAAEcSURBVDjLtdTdboIwAIbhgn5tKQgFBAXGv+Dvdv+XN7owjBADZNl70KMn5EsaSra6RrAgoulbom+wsI1ONCxOI2Q5XmOBP2A5BfItdvkE749vccFUDWCbprmbweJDxQGjLr8YhBDUEMKfmWE4sBnojdOQU2uM/V1XcFbn44ktNWOKD1T0ReE8zoYFPzhwo+WYeQnzqNPQU0OdCd7zvmqYkcRxToM4juUIP8whPmwGiqQCMPnyQZ2pBZTyib1AGqcJTt0rkhA8B4StMKWUwa+uuAfWGF/cFCyBjDwcs3uHd74v27xIATtoX7GVlUD5CRRn4JJLeBbgRQyqOmpfMDgAv+6QWnjrL/X38p20x//3p5AVdtVTsOqRWfV8fQPHkSVDHb7HRAAAAABJRU5ErkJggg==':' '" alt="">
+              <img class="imax" :src="item.version | imax_filter(8)" />
+              <img
+                class="preShow"
+                :src="item.preShow!=false?'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAcCAMAAAAtIK2eAAAAjVBMVEX/tQD/tQD/tgD/tQAAAAD/tAD///7/2Hz/y07/7MD/6rj/7sX/vBv/z17/35X/zVb/twn/8tX/xDf/uRD//fv/9uP/0mj/wS//viL/+u//78r/5qv/4Zn/tQT//PX/9d3/5KP/yEb/8dD/24T/z1z/xj//wSz/3pD/1nP/1G3/0WT/x0L/vyX/+Of/6LMvfBa2AAAABXRSTlPmphztAPMTpaIAAAEcSURBVDjLtdTdboIwAIbhgn5tKQgFBAXGv+Dvdv+XN7owjBADZNl70KMn5EsaSra6RrAgoulbom+wsI1ONCxOI2Q5XmOBP2A5BfItdvkE749vccFUDWCbprmbweJDxQGjLr8YhBDUEMKfmWE4sBnojdOQU2uM/V1XcFbn44ktNWOKD1T0ReE8zoYFPzhwo+WYeQnzqNPQU0OdCd7zvmqYkcRxToM4juUIP8whPmwGiqQCMPnyQZ2pBZTyib1AGqcJTt0rkhA8B4StMKWUwa+uuAfWGF/cFCyBjDwcs3uHd74v27xIATtoX7GVlUD5CRRn4JJLeBbgRQyqOmpfMDgAv+6QWnjrL/X38p20x//3p5AVdtVTsOqRWfV8fQPHkSVDHb7HRAAAAABJRU5ErkJggg==':' '"
+                alt
+              />
             </span>
             <p>
               {{item.sc!=0?'观众评':'暂无评分'}}
@@ -31,10 +35,14 @@
 </template>
 <script>
 import Vue from "vue";
+import { InfiniteScroll } from "mint-ui";
+Vue.use(InfiniteScroll);
 export default {
   data() {
     return {
       movieList: [],
+      MoreComingId: [],
+      top:0
     };
   },
   mounted() {
@@ -42,9 +50,35 @@ export default {
   },
   methods: {
     catEyeMovieInit() {
+
       this._getCatEyeMovie(res => {
         this.movieList = res.data.movieList;
-        // console.log(this.movieList);
+        this.MoreComingId = res.data.movieIds;
+        this.MoreComingInit1();
+      });
+    },
+    MoreComingInit1() {
+      this._getMoreComingData1(res => {
+        this.MoreComingInit2();
+        setTimeout(() => {}, 1000);
+        res.data.coming.map(item => {
+          this.movieList.push(item);
+        });
+      });
+    },
+    MoreComingInit2() {
+      this._getMoreComingData2(res => {
+        this.MoreComingInit3();
+        res.data.coming.map(item => {
+          this.movieList.push(item);
+        });
+      });
+    },
+    MoreComingInit3() {
+      this._getMoreComingData3(res => {
+        res.data.coming.map(item => {
+          this.movieList.push(item);
+        });
       });
     },
     _getCatEyeMovie(callback) {
@@ -52,8 +86,29 @@ export default {
         callback(res);
       });
     },
-    clickRouter(){
-      this.$router.push("/show")
+    _getMoreComingData1(callback) {
+      this.$apis
+        .getMoreComingData(this.MoreComingId.slice(12, 22))
+        .then(res => {
+          callback(res);
+        });
+    },
+    _getMoreComingData2(callback) {
+      this.$apis
+        .getMoreComingData(this.MoreComingId.slice(22, 32))
+        .then(res => {
+          callback(res);
+        });
+    },
+    _getMoreComingData3(callback) {
+      this.$apis
+        .getMoreComingData(this.MoreComingId.slice(32, 42))
+        .then(res => {
+          callback(res);
+        });
+    },
+    clickRouter() {
+      this.$router.push("/show");
     }
   }
 };
@@ -94,16 +149,16 @@ export default {
       text-align: left;
       float: left;
     }
-    .imax_img{
+    .imax_img {
       float: left;
       margin-top: 1.3333vw;
       margin-left: 1.0667vw;
       .imax {
-      width: 11.4667vw;
-    }
-    .preShow{
-      width: 5.8667vw;
-    }
+        width: 11.4667vw;
+      }
+      .preShow {
+        width: 5.8667vw;
+      }
     }
 
     p {

@@ -22,6 +22,20 @@ export default (Vue) => {
         return str;
     })
 
+    Vue.filter("headText",function(val,coun){
+        var text="";
+        // console.log(this.$router);
+        // this.$route.path == "/movie/nowPlay"
+        if (val == "/movie/nowPlay" || val == "/movie/advent" || val == "/movie/seek" || val == "/login" || val == "/register"){
+            text = "猫猫电影"
+        } else if (val == "/cinema"){
+            text = "影院"
+        } else if (val =="/show"){
+            text="电影详情"
+        }
+        return text;
+    })
+
     Vue.filter("fontlenght", function (val, num) {
         var str = "";
         if (val.length >= num) {

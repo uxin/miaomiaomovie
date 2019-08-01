@@ -40,7 +40,7 @@ export default {
         { path: "/movie/advent", name: "即将上映" }
       ],
       cityList: [],
-      className: 0
+      className: 0,
     };
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
 
     clickClassName(index) {
       this.className = index;
-    }
+    },
   }
 };
 </script>
